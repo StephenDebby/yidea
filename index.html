@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亿想科技 Yideas - 让每个想法都值得被看见</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2e5bff;
+            --primary-dark: #2248d0;
+            --primary-soft: rgba(46, 91, 255, 0.12);
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --surface-2: #f8faff;
+            --border: rgba(15, 23, 42, 0.08);
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+            --radius: 22px;
+            --max-width: 1180px;
+            --header-height: 72px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 42%, #f5f8fc 100%);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::before {
+            background: radial-gradient(circle at top left, rgba(46, 91, 255, 0.16), transparent 28%),
+                        radial-gradient(circle at 90% 12%, rgba(20, 184, 166, 0.12), transparent 24%);
+        }
+
+        body::after {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0,0,0,.5), transparent 85%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(var(--max-width), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--primary) 0%, #5d7fff 100%);
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 12px 24px rgba(46, 91, 255, 0.22);
+        }
+
+        .logo-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.35rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .hero {
+            padding: 88px 0 64px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 4.4vw, 3.5rem);
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 .accent {
+            color: var(--primary);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.04rem;
+            max-width: 620px;
+            margin-bottom: 24px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 12px 22px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #5a7fff 100%);
+            color: #fff;
+            box-shadow: 0 12px 24px rgba(46, 91, 255, 0.2);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 255, 0.92));
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: -15px;
+            border-radius: 32px;
+            border: 1px solid rgba(46, 91, 255, 0.14);
+            pointer-events: none;
+            animation: pulse 5s ease-in-out infinite;
+        }
+
+        .hero-card .panel-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .hero-card .panel-body {
+            display: grid;
+            gap: 14px;
+        }
+
+        .hero-chip {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .hero-chip:hover {
+            transform: translateX(4px);
+            border-color: rgba(46, 91, 255, 0.25);
+        }
+
+        .hero-chip strong {
+            display: block;
+            font-size: 1.02rem;
+            margin-bottom: 2px;
+        }
+
+        .hero-chip span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--primary);
+            font-size: 1.08rem;
+            margin-bottom: 3px;
+        }
+
+        .stat span {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        section {
+            padding: 72px 0;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            max-width: 690px;
+            margin: 0 auto 34px;
+            text-align: center;
+        }
+
+        .features {
+            padding-top: 24px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 24px 20px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 34px rgba(15, 23, 42, 0.07);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(46, 91, 255, 0.14), rgba(20, 184, 166, 0.14));
+            color: var(--primary);
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.06rem;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .product-showcase {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .showcase-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .check-list {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+        }
+
+        .check-list li::before {
+            content: "✓";
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            background: var(--primary-soft);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.82rem;
+            flex-shrink: 0;
+        }
+
+        .product-panel {
+            display: grid;
+            gap: 14px;
+        }
+
+        .product-panel-card {
+            background: linear-gradient(145deg, #111827 0%, #172033 100%);
+            color: #fff;
+            border-radius: 24px;
+            padding: 18px 20px;
+            box-shadow: 0 18px 40px rgba(2, 8, 23, 0.16);
+        }
+
+        .product-panel-card strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .product-panel-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.92rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .about-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .about-card p {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .about-card .quote {
+            border-left: 3px solid var(--primary);
+            padding-left: 14px;
+            color: var(--text);
+            font-weight: 600;
+            margin-top: 14px;
+        }
+
+        .founder-spotlight {
+            margin-top: 16px;
+            padding: 18px 20px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(46, 91, 255, 0.08), rgba(20, 184, 166, 0.08));
+            border: 1px solid rgba(46, 91, 255, 0.16);
+        }
+
+        .founder-spotlight .name {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .founder-spotlight .role {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .founder-spotlight p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .contact {
+            padding-top: 20px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 45%, #0f172a 100%);
+            color: #fff;
+            border-radius: 30px;
+            padding: 34px;
+            box-shadow: 0 24px 50px rgba(2, 8, 23, 0.16);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .contact-item {
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .contact-item .icon {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .contact-item h4 {
+            font-size: 0.98rem;
+            margin-bottom: 4px;
+        }
+
+        .contact-item p {
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.93rem;
+        }
+
+        .footer {
+            padding: 24px 0 36px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        @media (max-width: 920px) {
+            .hero,
+            .product-showcase,
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding-top: 64px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="#" class="logo">
+                <div class="logo-mark">Y</div>
+                <div class="logo-text">亿想<span>科技</span> <small style="font-weight: 500; font-size: 0.78rem; color: #64748b;">Yideas</small></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">服务</a></li>
+                <li><a href="#about">关于我们</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="菜单">☰</button>
+        </div>
+    </header>
+
+    <section class="hero container">
+        <div class="reveal">
+            <div class="eyebrow">🚀 面向未来的教育与创意平台</div>
+            <h1>让每个想法，都在<span class="accent">亿想岛</span>上发光</h1>
+            <p>亿想科技将教育、创意与技术融合成一个面向青少年的现代化成长平台。每一次探索，都有机会被看见、被连接、被放大。</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">加入亿想岛</a>
+                <a href="#features" class="btn btn-outline">了解产品</a>
+            </div>
+        </div>
+
+        <div class="hero-visual reveal">
+            <div class="hero-card">
+                <div class="panel-title">产品正在成长</div>
+                <div class="panel-body">
+                    <div class="hero-chip">
+                        <strong>真实需求驱动的精准连接</strong>
+                        <span>以真实需求出发，帮孩子们更快找到适合自己的内容、项目与同频伙伴。</span>
+                    </div>
+                    <div class="hero-chip">
+                        <strong>把创意沉淀为可持续作品</strong>
+                        <span>学习笔记、发明想法与项目成果，不再散落在不同平台上。</span>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stat">
+                            <strong>12+</strong>
+                            <span>已支持项目</span>
+                        </div>
+                        <div class="stat">
+                            <strong>24h</strong>
+                            <span>快速响应</span>
+                        </div>
+                        <div class="stat">
+                            <strong>100%</strong>
+                            <span>创意保护</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-showcase container reveal" id="product">
+        <div class="showcase-card">
+            <div class="eyebrow">产品体验</div>
+            <h2 class="section-title" style="text-align: left; margin-bottom: 12px;">更像一款真正被用户信任的成长产品</h2>
+            <p class="section-subtitle" style="text-align: left; margin: 0 0 16px;">我们把社区、内容与智能服务有机结合，让平台从“信息集合地”升级为“创意与成长的操作系统”。</p>
+            <ul class="check-list">
+                <li>以清晰的内容结构，让每一个想法都容易被发现</li>
+                <li>以灵活的协作机制，让团队与同伴更容易一起推进</li>
+                <li>以保护与反馈机制，让创作更安心、更有持续性</li>
+            </ul>
+        </div>
+        <div class="product-panel">
+            <div class="product-panel-card">
+                <strong>社区与智能协同</strong>
+                <p>让内容流动更顺畅，让灵感匹配更精准，让同频伙伴更容易建立连接。</p>
+            </div>
+            <div class="product-panel-card">
+                <strong>成长路径可视化</strong>
+                <p>帮助用户把零散的想法整理成可追踪、可展示、可复盘的成长过程。</p>
+            </div>
+            <div class="product-panel-card">
+                <strong>面向未来的产品思维</strong>
+                <p>兼顾体验、技术与社区价值，让平台既具现代感，也具长期可持续性。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">为什么选择亿想岛</h2>
+            <p class="section-subtitle">从灵感聚合，到共同成长，我们让每一次表达都更有价值，也更容易被真实地推进。</p>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">✦</div>
+                    <h3>知识集合</h3>
+                    <p>把学习笔记、创意点子与发明成果汇聚成更完整的成长地图。</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">⚙</div>
+                    <h3>智能匹配</h3>
+                    <p>基于兴趣和成长阶段，为青少年推荐更适合的内容与同伴。</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🔐</div>
+                    <h3>原创保护</h3>
+                    <p>为每一份创意提供更稳妥的保护与时间戳记录。</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🌿</div>
+                    <h3>共同成长</h3>
+                    <p>通过合作与挑战，让想法从点子走向真实项目。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container about-content">
+            <div class="about-card reveal">
+                <h2>关于亿想科技</h2>
+                <p>亿想科技（Yideas）由一群心系青少年成长的创始人与技术人共同发起。我们相信，真正有价值的教育，不只是知识传播，更是让每个孩子的想法被尊重、被看见、被放大。</p>
+                <p>在这条路上，创始人张颢译始终把教育与交流合作看作同一件事：让创意能够被理解、被陪伴，也被真正推进。</p>
+                <p>“亿想-译享岛”是我们的初心：让创意与思考，以更开放的方式被分享、被讨论、被实现。</p>
+                <div class="quote">“让每一次思考，都值得被记录；让每一个创意，都值得被看见。”</div>
+            </div>
+            <div class="about-card reveal">
+                <h2>我们正在做的</h2>
+                <p>结合大数据、人工智能与社区协作机制，构建一个安全、包容、充满激励的青少年创新空间。</p>
+                <p>无论是表达观点、展示作品，还是与志同道合的伙伴一起推进项目，平台都致力于成为未来教育与创意交流的重要入口。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-card reveal">
+                <h2 class="section-title" style="text-align: left; color: #fff; margin-bottom: 8px;">登岛，从这里开始</h2>
+                <p class="section-subtitle" style="text-align: left; margin: 0 0 18px; color: rgba(255,255,255,0.76); max-width: 680px;">如果你有合作意向、项目建议或想加入这个成长社区，欢迎与我们联系。</p>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="icon">✉️</div>
+                        <h4>合作邮箱</h4>
+                        <p>2077177378@qq.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">📱</div>
+                        <h4>联系电话</h4>
+                        <p>+86 177-6894-7016</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">📍</div>
+                        <h4>公司地址</h4>
+                        <p>中国南京秦淮区石杨路5号</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 亿想科技 Yideas. All rights reserved. | 让每个想法都值得被看见</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggleBtn = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (toggleBtn && navLinks) {
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+            });
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && e.target !== toggleBtn) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.18 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
