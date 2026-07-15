@@ -533,13 +533,14 @@
         .photo-card img {
             display: block;
             width: 100%;
-            height: 320px;
-            object-fit: cover;
+            height: auto;
+            object-fit: contain;
             transition: transform 0.45s ease;
+            background: #f8f9ff;
         }
 
         .photo-card:hover img {
-            transform: scale(1.04);
+            transform: scale(1.02);
         }
 
         .photo-card a {
@@ -590,17 +591,17 @@
 
         .lightbox-content {
             position: relative;
-            max-width: min(95vw, 1000px);
-            max-height: min(95vh, 820px);
-            width: auto;
+            max-width: 98vw;
+            max-height: 98vh;
+            width: 100%;
             height: auto;
-            border-radius: 24px;
+            border-radius: 18px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(0, 0, 0, 0.04);
         }
 
         .lightbox img {
@@ -1050,8 +1051,6 @@
                             <span class="view-btn">点击查看大图</span>
                         </div>
                     </a>
-                    <div class="photo-caption">
-                    </div>
                 </div>
                 <div class="photo-card">
                     <a href="#" data-full="images/ZFU2.jpg" aria-label="查看庆祝创立者16岁生日的第二张照片">
@@ -1060,8 +1059,6 @@
                             <span class="view-btn">点击查看大图</span>
                         </div>
                     </a>
-                    <div class="photo-caption">
-                    </div>
                 </div>
             </div>
         </div>
