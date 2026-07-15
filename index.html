@@ -135,6 +135,14 @@
             color: var(--primary);
         }
 
+        .nav-links .nav-pill {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(46, 91, 255, 0.12), rgba(20, 184, 166, 0.12));
+            color: var(--primary);
+            font-weight: 700;
+        }
+
         .menu-toggle {
             display: none;
             background: none;
@@ -455,6 +463,169 @@
             align-items: center;
         }
 
+        .special-section {
+            padding-top: 24px;
+        }
+
+        .special-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,255,0.92));
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-card::before {
+            content: "";
+            position: absolute;
+            inset: -20% auto auto -10%;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(46, 91, 255, 0.2), transparent 68%);
+            pointer-events: none;
+        }
+
+        .special-heading {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .special-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(46, 91, 255, 0.1);
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .special-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            animation: driftIn 0.8s ease both;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+        }
+
+        .photo-card img {
+            display: block;
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.04);
+        }
+
+        .photo-caption {
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.74);
+            color: #fff;
+            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+        }
+
+        .photo-caption strong {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.98rem;
+        }
+
+        .sparkle {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 0 0 6px rgba(46, 91, 255, 0.16);
+            animation: bounce 1.4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .celebration-banner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .celebration-chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(255, 197, 87, 0.24), rgba(230, 73, 128, 0.16));
+            color: #8a2be2;
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: inset 0 0 0 1px rgba(138, 43, 226, 0.12);
+        }
+
+        .birthday-quote {
+            margin: 12px 0 20px;
+            padding: 14px 16px;
+            border-left: 3px solid var(--primary);
+            color: var(--text-muted);
+            background: rgba(46, 91, 255, 0.05);
+            border-radius: 0 14px 14px 0;
+            font-weight: 600;
+        }
+
+        .confetti {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti span {
+            position: absolute;
+            top: -10%;
+            width: 10px;
+            height: 16px;
+            border-radius: 3px;
+            animation: fall 3.6s linear infinite;
+            opacity: 0.8;
+        }
+
+        .confetti span:nth-child(odd) {
+            background: #ff7b54;
+        }
+
+        .confetti span:nth-child(even) {
+            background: #2e5bff;
+        }
+
         .about-card {
             background: rgba(255, 255, 255, 0.86);
             border: 1px solid var(--border);
@@ -566,6 +737,34 @@
             50% { opacity: 1; transform: scale(1.02); }
         }
 
+        @keyframes driftIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate3d(0, -10%, rotate(0deg));
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            100% {
+                transform: translate3d(var(--drift), 110vh, rotate(720deg));
+                opacity: 0;
+            }
+        }
+
         @media (max-width: 920px) {
             .hero,
             .product-showcase,
@@ -628,7 +827,8 @@
             <ul class="nav-links">
                 <li><a href="#features">服务</a></li>
                 <li><a href="#about">关于我们</a></li>
-                <li><a href="#contact">联系方式</a></li>
+                <li><a href="#special">特别节目</a></li>
+                <li><a href="#contact" class="nav-pill">联系方式</a></li>
             </ul>
             <button class="menu-toggle" aria-label="菜单">☰</button>
         </div>
@@ -727,6 +927,49 @@
                     <div class="feature-icon">🌿</div>
                     <h3>共同成长</h3>
                     <p>通过合作与挑战，让想法从点子走向真实项目。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="special-section container reveal" id="special">
+        <div class="special-card">
+            <div class="confetti" aria-hidden="true">
+                <span style="left: 6%; --drift: 60px; animation-delay: 0s;"></span>
+                <span style="left: 18%; --drift: -80px; animation-delay: 0.4s;"></span>
+                <span style="left: 34%; --drift: 90px; animation-delay: 0.8s;"></span>
+                <span style="left: 50%; --drift: -40px; animation-delay: 1.2s;"></span>
+                <span style="left: 66%; --drift: 70px; animation-delay: 0.2s;"></span>
+                <span style="left: 82%; --drift: -110px; animation-delay: 0.6s;"></span>
+            </div>
+            <div class="special-heading">
+                <div>
+                    <div class="special-badge">🎉 特别节目 · 为创立者 16 岁生日献上</div>
+                    <h2 class="section-title" style="text-align: left; margin: 10px 0 6px;">一段专属于庆祝与记忆的时刻</h2>
+                    <p class="section-subtitle" style="text-align: left; margin: 0; max-width: 720px;">用两张照片，把祝福、热闹与成长的情绪，轻轻安放进这个页面里，让每一次访问都像参加一个温柔而热烈的庆祝。</p>
+                </div>
+            </div>
+            <div class="celebration-banner">
+                <div class="celebration-chip">🎂 16岁生日</div>
+                <div class="celebration-chip">✨ 祝福满满</div>
+                <div class="celebration-chip">🌈 记忆留存</div>
+            </div>
+            <div class="birthday-quote">“愿这一刻，像星星一样明亮，像风一样温柔，陪伴着成长，也留下属于这一天的光。”</div>
+            <div class="sparkle"></div>
+            <div class="special-grid">
+                <div class="photo-card">
+                    <img src="images/ZFU1.jpg" alt="庆祝创立者16岁生日的第一张照片">
+                    <div class="photo-caption">
+                        <strong>生日祝福瞬间</strong>
+                        <span>星光、欢声与一束束真诚的祝福，正在围绕着这一天慢慢升起。</span>
+                    </div>
+                </div>
+                <div class="photo-card">
+                    <img src="images/ZFU2.jpg" alt="庆祝创立者16岁生日的第二张照片">
+                    <div class="photo-caption">
+                        <strong>温暖与笑意</strong>
+                        <span>在欢笑与陪伴中，这一刻被记录成了属于成长的珍贵时刻。</span>
+                    </div>
                 </div>
             </div>
         </div>
