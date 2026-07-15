@@ -590,16 +590,25 @@
 
         .lightbox-content {
             position: relative;
-            max-width: 95%;
-            max-height: 95%;
+            max-width: min(95vw, 1000px);
+            max-height: min(95vh, 820px);
+            width: auto;
+            height: auto;
             border-radius: 24px;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .lightbox img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
             height: auto;
+            object-fit: contain;
             display: block;
         }
 
@@ -1042,8 +1051,6 @@
                         </div>
                     </a>
                     <div class="photo-caption">
-                        <strong>生日祝福瞬间</strong>
-                        <span>星光、欢声与一束束真诚的祝福，正在围绕着这一天慢慢升起。</span>
                     </div>
                 </div>
                 <div class="photo-card">
@@ -1054,8 +1061,6 @@
                         </div>
                     </a>
                     <div class="photo-caption">
-                        <strong>温暖与笑意</strong>
-                        <span>在欢笑与陪伴中，这一刻被记录成了属于成长的珍贵时刻。</span>
                     </div>
                 </div>
             </div>
